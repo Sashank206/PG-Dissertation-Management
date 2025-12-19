@@ -33,12 +33,12 @@ app.use("/api/queries", queryRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/activity-logs", activityLogRoutes);
 
-/* Test API */
+
 app.get("/", (req, res) => {
   res.send("PG Dissertation Management API is running...");
 });
  
-/* Error Handling Middleware (always last) */
+
 app.use(errorMiddleware);
 
 /* DB Connection */
