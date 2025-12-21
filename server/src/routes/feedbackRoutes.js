@@ -1,25 +1,19 @@
 import express from "express";
-import {
-  addFeedback,
-  getFeedbacks
-} from "../controllers/feedbackController.js";
-
+import { addFeedback, getFeedbackBySubmission } from "../controllers/feedbackController.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 import roleMiddleware from "../middleware/roleMiddleware.js";
 
 const router = express.Router();
 
-router.post(
-  "/",
+router.post("/", authMiddleware, roleMiddleware("supervisor", "admin"), addFeedback);
+router.get("/submission/:submissionId", authMiddleware, getFeedbackBySubmission);
+router.get(
+  "/my",
   authMiddleware,
-  roleMiddleware("supervisor"),
-  addFeedback
+  roleMiddleware(["student"]),
+  getMyFeedbacks
 );
 
-router.get(
-  "/",
-  authMiddleware,
-  getFeedbacks
-);
+
 
 export default router;

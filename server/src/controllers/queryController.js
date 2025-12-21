@@ -45,7 +45,7 @@ export const answerQuery = async (req, res) => {
     { new: true }
   );
 
- 
+
   await createNotification(
     query.studentId,
     "Your query has been answered by the supervisor"
@@ -62,6 +62,20 @@ export const getQueriesByStatus = async (req, res) => {
 };
 
 export const getQueries = async (req, res) => {
-  const queries = await Query.find();
+  const { role, userId } = req.user;
+  let queryFilter = {};
+
+  if (role === 'student') {
+    queryFilter = { studentId: userId };
+  } else if (role === 'supervisor') {
+    queryFilter = { supervisorId: userId };
+  }
+  // If admin, empty filter returns all
+
+  const queries = await Query.find(queryFilter)
+    .populate('studentId', 'name')
+    .populate('supervisorId', 'name')
+    .sort({ createdAt: -1 });
+
   res.json(queries);
 };

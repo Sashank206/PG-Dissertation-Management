@@ -1,23 +1,18 @@
 import mongoose from "mongoose";
 
 const dissertationSchema = new mongoose.Schema({
-  title: String,
   studentId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
+    ref: "User",
+    unique: true
   },
-  supervisorId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
-  },
+  title: String,
+  abstract: String,
   departmentId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Department"
   },
-  status: {
-    type: String,
-    default: "Proposed"
-  }
+  status: String
 }, { timestamps: true });
 
 export default mongoose.model("Dissertation", dissertationSchema);

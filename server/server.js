@@ -13,14 +13,20 @@ import queryRoutes from "./src/routes/queryRoutes.js";
 import notificationRoutes from "./src/routes/notificationRoutes.js";
 import activityLogRoutes from "./src/routes/activityLogRoutes.js";
 import errorMiddleware from "./src/middleware/errorMiddleware.js";
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 dotenv.config();
 
 const app = express();
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 /* Middlewares */
 app.use(cors());
 app.use(express.json());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 /* Routes */
 app.use("/api/auth", authRoutes);
@@ -34,10 +40,11 @@ app.use("/api/notifications", notificationRoutes);
 app.use("/api/activity-logs", activityLogRoutes);
 
 
+
 app.get("/", (req, res) => {
   res.send("PG Dissertation Management API is running...");
 });
- 
+
 
 app.use(errorMiddleware);
 
@@ -52,3 +59,4 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+

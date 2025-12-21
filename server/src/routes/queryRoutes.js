@@ -43,7 +43,7 @@ router.get(
 router.get(
   "/",
   authMiddleware,
-  roleMiddleware("admin"),
+  roleMiddleware("admin", "student", "supervisor"),
   getQueries
 );
 

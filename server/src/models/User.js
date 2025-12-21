@@ -13,6 +13,9 @@ const userSchema = new mongoose.Schema({
     ref: "Department"
   },
   rollNumber: String,        // student
+  batch: String,             // student
+  program: String,           // student
+  phoneNumber: String,       // student
   designation: String,       // supervisor
   isActive: {
     type: Boolean,
