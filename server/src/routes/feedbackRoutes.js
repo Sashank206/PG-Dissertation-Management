@@ -1,5 +1,5 @@
 import express from "express";
-import { addFeedback, getFeedbackBySubmission } from "../controllers/feedbackController.js";
+import { addFeedback, getFeedbackBySubmission, getMyFeedbacks } from "../controllers/feedbackController.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 import roleMiddleware from "../middleware/roleMiddleware.js";
 
