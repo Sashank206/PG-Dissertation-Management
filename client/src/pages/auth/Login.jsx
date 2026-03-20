@@ -2,13 +2,14 @@ import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useNotification } from '../../context/NotificationContext';
-import { GraduationCap, Lock, Mail } from 'lucide-react';
+import { GraduationCap, Lock, Mail, ChevronDown } from 'lucide-react';
 import Loader from '../../components/common/Loader';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [showDemoDetails, setShowDemoDetails] = useState(false);
 
     const { login } = useAuth();
     const { showNotification } = useNotification();
@@ -117,6 +118,44 @@ const Login = () => {
                             </div>
 
                         </form>
+
+                        {/* View Demo Details Button */}
+                        <button
+                            type="button"
+                            onClick={() => setShowDemoDetails(!showDemoDetails)}
+                            className="mt-8 pt-6 w-full flex items-center justify-between border-t border-gray-200 text-gray-700 hover:text-gray-900 transition-colors"
+                        >
+                            <span className="text-sm font-medium">View Demo Credentials</span>
+                            <ChevronDown 
+                                className={`h-5 w-5 transition-transform duration-300 ${showDemoDetails ? 'rotate-180' : ''}`}
+                            />
+                        </button>
+
+                        {/* Demo Credentials */}
+                        {showDemoDetails && (
+                            <div className="mt-6 space-y-4">
+                                {/* Admin */}
+                                <div className="bg-gradient-to-r from-red-50 to-red-100 p-3 rounded-md">
+                                    <p className="text-xs font-semibold text-red-700 mb-1">Admin</p>
+                                    <p className="text-xs text-gray-700">Email: <span className="font-mono font-semibold">admin@college.edu</span></p>
+                                    <p className="text-xs text-gray-700">Password: <span className="font-mono font-semibold">admin123</span></p>
+                                </div>
+
+                                {/* Student */}
+                                <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-3 rounded-md">
+                                    <p className="text-xs font-semibold text-blue-700 mb-1">Student</p>
+                                    <p className="text-xs text-gray-700">Email: <span className="font-mono font-semibold">student1@college.edu</span></p>
+                                    <p className="text-xs text-gray-700">Password: <span className="font-mono font-semibold">student123</span></p>
+                                </div>
+
+                                {/* Supervisor */}
+                                <div className="bg-gradient-to-r from-purple-50 to-purple-100 p-3 rounded-md">
+                                    <p className="text-xs font-semibold text-purple-700 mb-1">Supervisor</p>
+                                    <p className="text-xs text-gray-700">Email: <span className="font-mono font-semibold">rao@college.edu</span></p>
+                                    <p className="text-xs text-gray-700">Password: <span className="font-mono font-semibold">rao123</span></p>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

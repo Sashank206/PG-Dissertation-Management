@@ -11,6 +11,7 @@ const Home = () => {
     if (user.role === 'admin') return <Navigate to="/admin/dashboard" replace />;
 
     return <Navigate to="/login" replace />;
+
 };
 
 export default Home;
