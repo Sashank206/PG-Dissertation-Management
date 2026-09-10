@@ -9,20 +9,20 @@ export const createDissertation = async (req, res) => {
 export const getDissertations = async (req, res) => {
   try {
     const { role, userId } = req.user;
+
     let query = {};
 
-    if (role === 'supervisor') {
-      query = { supervisorId: userId };
-    } else if (role === 'student') {
+    if (role === "student") {
       query = { studentId: userId };
     }
 
     const data = await Dissertation.find(query)
-      .populate('studentId', 'name email')
-      .populate('supervisorId', 'name email')
-      .populate('departmentId', 'departmentName');
+      .populate("studentId", "name email")
+      .populate("departmentId", "departmentName");
+
     res.json(data);
   } catch (error) {
+    console.error("❌ Error fetching dissertations:", error);
     res.status(500).json({ message: "Error fetching dissertations" });
   }
 };
